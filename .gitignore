@@ -1,0 +1,12 @@
+# 비밀 정보
+.env
+.env.*
+!.env.example
+
+# 환경
+node_modules/
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
