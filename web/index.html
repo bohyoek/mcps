@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2029 하계동 빵집</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#F6EFE3;--paper:#FBF7F0;--brown:#8B5A2B;--orange:#E8742A;--gray:#9C9285;--line:#E6DCCB;--shadow:0 4px 0 rgba(139,90,43,.08),0 12px 26px rgba(139,90,43,.10)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--brown);font-family:Pretendard,"Malgun Gothic",sans-serif;line-height:1.6;font-variant-numeric:tabular-nums;word-break:keep-all}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header{padding:28px 0 0;font-weight:800;font-size:15px}
+header b{color:var(--orange)}
+.hero{padding:28px 0 36px}
+.hero h1{font-size:clamp(28px,4.6vw,50px);line-height:1.25;letter-spacing:-1.2px;font-weight:900}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero p.lead{margin-top:12px;font-size:clamp(16px,2vw,19px);color:var(--gray);font-weight:600}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+.kpi{background:var(--paper);border-radius:18px;padding:20px 22px;box-shadow:var(--shadow)}
+.kpi .v{font-size:clamp(30px,4.4vw,46px);font-weight:900;letter-spacing:-1px;line-height:1.15}
+.kpi .v small{font-size:.5em;font-weight:800}
+.kpi.main .v{color:var(--orange)}
+.kpi .k{font-weight:700;margin-top:4px}
+.kpi .s{font-size:13px;color:var(--gray);margin-top:2px}
+.video{margin-top:26px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:#000}
+.video video{display:block;width:100%;height:auto}
+.vnote{font-size:13px;color:var(--gray);margin-top:8px}
+section{padding:44px 0;border-top:1px solid var(--line)}
+section h2{font-size:clamp(22px,3vw,30px);font-weight:900;letter-spacing:-.6px}
+section h2 span{color:var(--orange)}
+section .sub{color:var(--gray);font-weight:600;margin-top:4px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.card{background:var(--paper);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow)}
+.card h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.card .big{font-size:34px;font-weight:900;color:var(--orange);letter-spacing:-.8px}
+.card p,.card li{font-size:15px}
+.card ul{padding-left:18px}
+.muted{color:var(--gray)}
+table{width:100%;border-collapse:collapse;margin-top:20px;background:var(--paper);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);font-size:15px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:13px;color:var(--gray);font-weight:700;background:#F3EADC}
+td.n,th.n{text-align:right}
+tr.top td{color:var(--orange);font-weight:800}
+tr:last-child td{border-bottom:0}
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.tl .card .d{font-weight:900;font-size:20px}
+.tl .card.us{background:var(--orange);color:var(--paper)}
+.chain{margin-top:22px;display:grid;gap:10px}
+.chain .row{display:grid;grid-template-columns:130px 1fr;gap:16px;background:var(--paper);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow)}
+.chain .row b{color:var(--orange)}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;background:#F3EADC;font-size:13px;font-weight:700;margin:2px 4px 2px 0}
+.pill.o{background:var(--orange);color:var(--paper)}
+.wow li{margin:10px 0;padding-left:4px}
+.wow b{color:var(--orange)}
+footer{padding:36px 0 60px;font-size:13px;color:var(--gray);border-top:1px solid var(--line)}
+footer li{margin:4px 0}
+@media (max-width:760px){.kpis,.grid2,.grid3,.tl{grid-template-columns:1fr}.chain .row{grid-template-columns:1fr;gap:4px}th,td{padding:10px}table{display:block;overflow-x:auto;white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>2029 <b>하계동 빵집</b> 개업 시뮬레이션</header>
+
+<div class="hero">
+  <h1>2029년, <em>노원구 하계1동</em>에 아침빵 + 쫀득 디저트 빵집을 열면 <em>월 632만원</em>이 남는다</h1>
+  <p class="lead">서울 352개 행정동을 점수로 비교해 고른 동네, 빵·디저트 반반 15평 테이크아웃 매장, 2029년 기준 손익</p>
+  <div class="kpis">
+    <div class="kpi main"><div class="v">632<small>만원/월</small></div><div class="k">2029년 월 영업이익</div><div class="s">기본 시나리오 · 사장 인건비 전</div></div>
+    <div class="kpi"><div class="v">22<small>개월</small></div><div class="k">투자금 회수</div><div class="s">초기 투자 1억 5,333만원 (보증금 제외 1억 3,797만원)</div></div>
+    <div class="kpi"><div class="v">1<small>위</small> 76.9<small>점</small></div><div class="k">352개 동 입지 점수</div><div class="s">가중치를 1,000번 흔들어도 986번 1위</div></div>
+  </div>
+  <div class="video"><video src="../video/final.mp4" poster="../video/poster.jpg" controls preload="metadata" playsinline></video></div>
+  <p class="vnote">2분 7초 · 내레이션: Supertonic-3 (오픈소스 TTS) · 음악: 코드로 합성 · 모든 그림은 코드로 그림</p>
+</div>
+
+<section>
+  <h2>1. 왜 <span>하계1동</span>인가</h2>
+  <p class="sub">수요 30 · 미래 변화 25 · 경쟁 20 · 수익성 25 — 지표 12개, 352개 동 백분위 비교</p>
+  <div class="grid3">
+    <div class="card"><h3>빵집 수</h3><div class="big">3.06개</div><p>인구 1만 명당 · 서울 중간값 6.28개의 <b>절반</b></p></div>
+    <div class="card"><h3>빵집 한 곳 연매출</h3><div class="big">2.20억원</div><p>서울 중간값 1.34억원의 <b>1.6배</b></p></div>
+    <div class="card"><h3>빵집 매출 증가</h3><div class="big">+10.2%/년</div><p>서울 중간값 −1.4%/년</p></div>
+  </div>
+  <table>
+    <thead><tr><th>순위</th><th>행정동</th><th class="n">총점</th><th class="n">수요</th><th class="n">미래 변화</th><th class="n">경쟁</th><th class="n">수익성</th></tr></thead>
+    <tbody>
+      <tr class="top"><td>1</td><td>노원구 하계1동</td><td class="n">76.9</td><td class="n">85.9</td><td class="n">68.5</td><td class="n">72.1</td><td class="n">78.3</td></tr>
+      <tr><td>2</td><td>노원구 월계2동</td><td class="n">73.0</td><td class="n">53.0</td><td class="n">98.8</td><td class="n">77.3</td><td class="n">67.6</td></tr>
+      <tr><td>3</td><td>노원구 상계9동</td><td class="n">69.0</td><td class="n">56.3</td><td class="n">48.4</td><td class="n">88.1</td><td class="n">89.5</td></tr>
+      <tr><td>4</td><td>용산구 효창동</td><td class="n">67.2</td><td class="n">79.2</td><td class="n">48.4</td><td class="n">49.2</td><td class="n">85.7</td></tr>
+      <tr><td>5</td><td>도봉구 창4동</td><td class="n">66.4</td><td class="n">79.7</td><td class="n">48.4</td><td class="n">56.6</td><td class="n">76.1</td></tr>
+    </tbody>
+  </table>
+  <div class="tl">
+    <div class="card"><div class="d">2027.11</div><p>동북선 개통 · 하계역 일대</p></div>
+    <div class="card"><div class="d">2028.7</div><p>월계동 서울원 아이파크 3,032세대·실 입주</p></div>
+    <div class="card"><div class="d">2029 상반기</div><p>중계본동 백사마을 3,178세대 입주 (지연 가능)</p></div>
+    <div class="card us"><div class="d">2029</div><p>우리 빵집 개업</p></div>
+  </div>
+  <p class="sub" style="margin-top:14px">임대료(2029 환산) 3.3㎡당 월 8.0만원 — 서울 평균 18.1만원의 44% · 15평 월 약 120만원 (R-ONE 상계역 상권 대용값)</p>
+</section>
+
+<section>
+  <h2>2. 어떤 <span>가게</span>인가</h2>
+  <p class="sub">입지에서 손익까지 한 줄로 이어지는 컨셉</p>
+  <div class="chain">
+    <div class="row"><b>입지 → 타깃</b><div>하계1동 빵집 매출의 <b>26.2%</b>가 아침(06–11시, 서울 17.5%) · 유동인구 60대+ 25.8% · 서울 빵집 60대+ 매출 비중 12.2% → 21.7%</div></div>
+    <div class="row"><b>타깃 → 공간</b><div>15평 테이크아웃 · 입구엔 아침빵 평대, 안쪽엔 단면이 보이는 디저트 쇼케이스, 유리창 너머 오븐 · 턱 없는 입구와 큰 글씨 가격표</div></div>
+    <div class="row"><b>공간 → 메뉴</b><div>빵 8종 + 디저트 8종 반반 · <b>시즌 한정 메뉴</b> 1개를 6~8주마다 교체 · 첫 시즌 메뉴 찹쌀 소금빵</div></div>
+    <div class="row"><b>메뉴 → 차별화</b><div>하계1동 빵집 절반이 프랜차이즈(서울 26.5%) → "동네에서 새 디저트가 제일 먼저 나오는 집" + 7시 오픈</div></div>
+    <div class="row"><b>차별화 → 손익</b><div>한정 메뉴가 통하면 매출 +20%(낙관), 안 통해도 아침빵이 바닥을 받쳐 비관에서도 흑자</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>디저트 유행은 점점 짧아진다</h3>
+      <p>관심이 반으로 줄기까지 (언론 보도 기준 추정)</p>
+      <p style="margin-top:8px"><span class="pill">크로플 163일</span><span class="pill">탕후루 54일</span><span class="pill o">두쫀쿠 약 15일</span></p>
+      <p class="muted" style="margin-top:8px">유행 디저트 4개(두쫀쿠·버터떡·창억떡·한정선)가 모두 떡 계열 쫀득 식감</p></div>
+    <div class="card"><h3>인기 메뉴 공식</h3>
+      <ul><li>익숙한 베이스 + 낯선 요소 하나</li><li>쫀득하거나 바삭한 식감</li><li>잘랐을 때 보이는 단면</li><li>하루 한정 수량 · 개당 1,500~8,000원</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>3. 왜 <span>남는가</span></h2>
+  <p class="sub">2029년 값 · 만원/월 · 사장 인건비 전 · 계산: parts/4-pnl/pnl.py</p>
+  <table>
+    <thead><tr><th></th><th class="n">비관</th><th class="n">기본</th><th class="n">낙관</th></tr></thead>
+    <tbody>
+      <tr><td>가정</td><td class="n">매출 −1.4%/년, 한정 메뉴 실패</td><td class="n">매출 +10.2%/년</td><td class="n">기본 + 한정 메뉴 +20%</td></tr>
+      <tr><td>월 매출</td><td class="n">1,756</td><td class="n">2,452</td><td class="n">2,943</td></tr>
+      <tr><td>재료비 / 인건비(2.5명) / 임대료</td><td class="n">715 / 654 / 120</td><td class="n">834 / 654 / 120</td><td class="n">883 / 654 / 120</td></tr>
+      <tr class="top"><td>월 영업이익</td><td class="n">92</td><td class="n">632</td><td class="n">1,029</td></tr>
+      <tr><td>손익분기 하루 손님</td><td class="n">36명</td><td class="n">32명</td><td class="n">30명</td></tr>
+      <tr><td>투자 회수</td><td class="n">149개월</td><td class="n">22개월</td><td class="n">13개월</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>의외의 <span>발견</span></h2>
+  <ol class="wow">
+    <li>2029년 유망 상위 3곳이 <b>모두 노원구</b> — 지금 뜨는 강남·성수가 아니다. 그곳들의 재건축은 2029년에도 공사 중.</li>
+    <li>빵집 손님이 나이 들고 있다 — 서울 빵집 매출 중 <b>60대 이상 비중이 4년 반 만에 거의 2배</b> (12.2% → 21.7%).</li>
+    <li>하계1동은 빵집이 서울 중간의 절반인데 한 곳 매출은 1.6배 — <b>공급이 수요를 못 따라가는 동네</b>.</li>
+    <li>임대료 차이(월 152만원)보다 <b>매출 증가율 차이(월 540만원)</b>가 훨씬 크다 — "싼 곳"보다 "빵이 더 팔리기 시작한 곳".</li>
+  </ol>
+</section>
+
+<footer>
+  <b>약점 (솔직하게)</b>
+  <ul>
+    <li>기본 시나리오는 하계1동 매출 증가(+10.2%/년)가 3년 더 이어진다는 가정</li>
+    <li>임대료는 하계1동이 아닌 R-ONE 상계역 상권 값(대용) · 원가율 34%·한정 메뉴 +20%는 가정</li>
+    <li>매출은 카드 결제 기반 추정매출이라 현금 등은 빠져 있음</li>
+  </ul>
+  <b style="display:block;margin-top:16px">출처</b>
+  <ul>
+    <li>서울시 상권분석서비스 OpenAPI (점포·추정매출·유동·상주·직장인구, 2021Q1–2026Q2)</li>
+    <li>한국부동산원 R-ONE 상업용부동산 임대동향 (2026Q3) · 최저임금위원회 · 금융위원회 카드 우대수수료율 (2025.2)</li>
+    <li>서울시 발표·언론 보도 (동북선·입주 일정, 디저트 유행 36건) — 세부 URL은 parts/0-research/notes/*_SOURCES.md</li>
+    <li>점수 모델 parts/1-location/scoring.py · 손익 parts/4-pnl/pnl.py · 논리 구조 story/logic.md</li>
+  </ul>
+</footer>
+</div>
+</body>
+</html>

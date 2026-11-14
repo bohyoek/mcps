@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>2029 하계동 빵집</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--cream:#F6EFE3;--brown:#8B5A2B;--orange:#E8742A;--gray:#B8AFA3;--paper:#FBF7F0;--shadow:0 6px 0 rgba(139,90,43,.10),0 14px 28px rgba(139,90,43,.12)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:#2a1d12;overflow:hidden}
+body{font-family:Pretendard,"Malgun Gothic",sans-serif;color:var(--brown);font-variant-numeric:tabular-nums}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;background:var(--cream);transform-origin:0 0;overflow:hidden}
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden}
+.abs{position:absolute}
+.paper{background:var(--paper);border-radius:22px;box-shadow:var(--shadow)}
+#brand{left:64px;top:44px;font-size:24px;font-weight:700;letter-spacing:-.2px}
+#brand b{color:var(--orange)}
+#src{right:64px;top:48px;font-size:19px;color:var(--gray);text-align:right;max-width:900px}
+#sub{left:50%;bottom:52px;transform:translateX(-50%);max-width:1560px;padding:16px 34px;font-size:36px;font-weight:600;line-height:1.4;text-align:center;background:rgba(251,247,240,.93);border-radius:18px;box-shadow:var(--shadow);opacity:0;word-break:keep-all}
+h2.title{position:absolute;left:0;right:0;top:130px;text-align:center;font-size:52px;font-weight:800;letter-spacing:-1px}
+.note{font-size:20px;color:var(--gray)}
+/* 1 split flap */
+.row{position:absolute;left:0;right:0;display:flex;justify-content:center;gap:10px}
+.tile{position:relative;perspective:600px}
+.tile .h{position:absolute;left:0;right:0;height:50%;overflow:hidden;background:var(--brown);color:var(--cream);backface-visibility:hidden}
+.tile.hero .h{background:var(--orange)}
+.tile .top{top:0;border-radius:10px 10px 0 0;transform-origin:50% 100%}
+.tile .bot{bottom:0;border-radius:0 0 10px 10px;transform-origin:50% 0}
+.tile .h span{position:absolute;left:0;right:0;text-align:center;font-weight:800}
+.tile .top span{top:0}.tile .bot span{bottom:0}
+.tile .bot{filter:brightness(1.08)}
+.tile::after{content:"";position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:rgba(0,0,0,.18);z-index:5}
+.gap{width:34px}
+/* generic */
+.circle{position:absolute;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);box-shadow:var(--shadow)}
+.circle .w{font-size:96px;font-weight:900;line-height:1}
+.circle .n{font-size:40px;font-weight:800;margin-top:6px}
+.ind{position:absolute;width:330px;text-align:center;font-size:22px;line-height:1.5;color:var(--brown)}
+.card{position:absolute;left:460px;width:1000px;height:118px;display:flex;align-items:center;padding:0 40px;gap:36px}
+.card .rk{font-size:56px;font-weight:900;width:110px}
+.card .nm{font-size:50px;font-weight:800;flex:1}
+.card .gu{font-size:28px;color:var(--gray);font-weight:600}
+.card .sc{font-size:44px;font-weight:800}
+.stat{position:absolute;top:330px;width:500px;height:430px;padding:40px 36px;text-align:center}
+.stat .big{font-size:120px;font-weight:900;line-height:1.1;letter-spacing:-3px}
+.stat .unit{font-size:44px;font-weight:800}
+.stat .lb{font-size:32px;font-weight:700;margin-top:14px}
+.stat .cmp{font-size:26px;color:var(--gray);margin-top:22px;font-weight:600}
+.ms{position:absolute;width:330px;padding:22px 24px;text-align:center}
+.ms .d{font-size:30px;font-weight:900}
+.ms .t{font-size:27px;font-weight:700;margin-top:6px;line-height:1.35}
+.chip{position:absolute;padding:14px 28px;border-radius:999px;font-size:30px;font-weight:800;box-shadow:var(--shadow);background:var(--paper)}
+.bar{position:absolute;left:520px;height:96px;border-radius:0 18px 18px 0}
+.blab{position:absolute;left:120px;width:370px;text-align:right;font-size:44px;font-weight:800}
+.bval{position:absolute;font-size:46px;font-weight:900}
+.word{position:absolute;left:150px;font-size:66px;font-weight:900;letter-spacing:-1.5px}
+.box{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.box .k{font-size:28px;font-weight:700}
+.box .v{font-size:58px;font-weight:900;letter-spacing:-1px}
+#play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(42,29,18,.55);color:#fff;font-size:44px;font-weight:800;cursor:pointer;z-index:99}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="brand" class="abs">2029 <b>하계동 빵집</b> 개업 시뮬레이션</div>
+  <div id="src" class="abs"></div>
+
+  <!-- 1 결론: 스플릿 플랩 -->
+  <section class="scene" id="s1">
+    <div class="row" id="r1" style="top:250px"></div>
+    <div class="row" id="r2" style="top:410px"></div>
+    <div class="row" id="r3" style="top:590px"></div>
+    <div class="abs note" id="s1cap" style="left:0;right:0;top:820px;text-align:center;font-size:30px;font-weight:700;color:var(--brown)">2029년 예상 · 기본 시나리오 · 사장 인건비 전</div>
+  </section>
+
+  <!-- 2 점수 모델: 바우하우스 원 4개 -->
+  <section class="scene" id="s2">
+    <h2 class="title">서울 352개 행정동, 4개 축으로 점수 매기기</h2>
+    <div id="circles"></div>
+    <div class="chip abs" id="s2sum" style="left:50%;top:790px;transform:translateX(-50%)">가중치 합 100 · 352개 동 백분위 비교</div>
+  </section>
+
+  <!-- 3 순위 카운트다운 -->
+  <section class="scene" id="s3">
+    <h2 class="title" style="top:110px">2029년 빵집 입지 점수 TOP 5</h2>
+    <div id="cards"></div>
+    <div class="chip abs" id="s3sens" style="left:50%;top:790px;transform:translateX(-50%)">가중치 ±30% 무작위 1,000번 → <span id="s3n" style="color:var(--orange)">0</span>번 1위</div>
+  </section>
+
+  <!-- 4 숫자 카운터 -->
+  <section class="scene" id="s4">
+    <div class="chip abs" id="s4top" style="left:50%;top:150px;transform:translateX(-50%);font-size:40px">상위 3곳 = 모두 <span style="color:var(--orange)">노원구</span> · 하계1동 · 월계2동 · 상계9동</div>
+    <div class="stat paper" id="st1" style="left:130px"><div class="big"><span id="c1">0</span><span class="unit">개</span></div><div class="lb">인구 1만 명당 빵집 수</div><div class="cmp">서울 중간값 6.28개의 절반</div></div>
+    <div class="stat paper" id="st2" style="left:710px"><div class="big"><span id="c2">0</span><span class="unit">억 원</span></div><div class="lb">빵집 한 곳 연매출</div><div class="cmp">서울 중간값 1.34억 원의 1.6배</div></div>
+    <div class="stat paper" id="st3" style="left:1290px"><div class="big">+<span id="c3">0</span><span class="unit">%</span></div><div class="lb">빵집 매출 연평균 증가</div><div class="cmp">서울 중간값 −1.4%</div></div>
+  </section>
+
+  <!-- 5 타임라인 -->
+  <section class="scene" id="s5">
+    <h2 class="title">2029년까지 확정된 변화</h2>
+    <svg class="abs" style="left:0;top:0" width="1920" height="1080"><line id="tl" x1="180" y1="560" x2="180" y2="560" stroke="#8B5A2B" stroke-width="8" stroke-linecap="round"/><g id="ticks"></g></svg>
+    <div id="mss"></div>
+  </section>
+
+  <!-- 6 아이소메트릭 매장 -->
+  <section class="scene" id="s6">
+    <svg class="abs" id="iso" style="left:0;top:0" width="1920" height="1080"></svg>
+    <div class="chip abs" id="s6a" style="left:80px;top:150px">아침(06–11시) 매출 <span style="color:var(--orange)">26.2%</span> · 서울 17.5%</div>
+    <div class="chip abs" id="s6b" style="left:80px;top:240px">서울 빵집 60대+ 매출 비중 12.2% → <span style="color:var(--orange)">21.7%</span></div>
+    <div class="chip abs" id="s6c" style="right:80px;top:150px;font-size:40px"></div>
+    <div class="abs note" style="left:84px;top:330px;font-size:24px;font-weight:700">15평 · 테이크아웃 · 카페형 좌석 없음</div>
+  </section>
+
+  <!-- 7 유행 주기 -->
+  <section class="scene" id="s7">
+    <h2 class="title" id="s7t">디저트 관심이 반으로 줄기까지</h2>
+    <div id="bars"></div>
+    <div class="abs note" id="s7n" style="left:520px;top:690px">언론 보도 기준 추정 · 두쫀쿠 13~17일</div>
+    <div id="cal"></div>
+  </section>
+
+  <!-- 8 인기 메뉴 공식 + 단면 -->
+  <section class="scene" id="s8">
+    <div class="abs" id="s8t" style="left:150px;top:150px;font-size:34px;font-weight:800;color:var(--gray)">인기 메뉴 공식 → 첫 시즌 메뉴 <span style="color:var(--brown)">찹쌀 소금빵</span></div>
+    <div class="word" id="w1" style="top:290px">익숙한 빵</div>
+    <div class="word" id="w2" style="top:410px">+ 떡의 쫀득함</div>
+    <div class="word" id="w3" style="top:530px">+ 보이는 단면</div>
+    <div class="word" id="w4" style="top:650px">+ 하루 한정</div>
+    <svg class="abs" id="bread" style="left:900px;top:220px" width="920" height="620"></svg>
+    <div class="chip abs" id="s8b" style="left:1560px;top:230px;background:var(--orange);color:var(--cream)">오늘 남은 12개</div>
+  </section>
+
+  <!-- 9 손익 순서도 -->
+  <section class="scene" id="s9">
+    <div class="abs note" style="left:80px;top:140px;font-size:26px;font-weight:700;color:var(--brown)">2029년 기본 시나리오 · 만원/월 · 사장 인건비 전</div>
+    <svg class="abs" style="left:0;top:0" width="1920" height="1080"><path id="flow" d="M 420 430 L 640 430 L 640 300 L 1000 300 L 1000 560 L 1300 560" fill="none" stroke="#B8AFA3" stroke-width="6" stroke-dasharray="14 12"/><circle id="dot" r="16" fill="#E8742A"/></svg>
+    <div class="box paper" id="b0" style="left:90px;top:330px;width:330px;height:200px"><div class="k">월 매출</div><div class="v">2,452</div></div>
+    <div class="box paper" id="bc1" style="left:690px;top:180px;width:270px;height:120px"><div class="k">재료비</div><div class="v" style="font-size:46px">−834</div></div>
+    <div class="box paper" id="bc2" style="left:690px;top:320px;width:270px;height:120px"><div class="k">인건비 (2.5명)</div><div class="v" style="font-size:46px">−654</div></div>
+    <div class="box paper" id="bc3" style="left:690px;top:460px;width:270px;height:120px"><div class="k">임대료 (15평)</div><div class="v" style="font-size:46px">−120</div></div>
+    <div class="box paper" id="bc4" style="left:690px;top:600px;width:270px;height:120px"><div class="k">공과금·카드·기타</div><div class="v" style="font-size:46px">−213</div></div>
+    <div class="box" id="b5" style="left:1310px;top:440px;width:440px;height:240px;border-radius:26px;background:var(--orange);color:var(--cream);box-shadow:var(--shadow)"><div class="k">남는 돈</div><div class="v" style="font-size:96px">632</div></div>
+    <div class="chip abs" id="s9a" style="left:1310px;top:250px">손익분기 하루 <span style="color:var(--orange)">32명</span></div>
+    <div class="chip abs" id="s9b" style="left:1310px;top:340px">투자 회수 <span style="color:var(--orange)">22개월</span></div>
+    <div id="scen"></div>
+  </section>
+
+  <!-- 10 엔드 카드 -->
+  <section class="scene" id="s10">
+    <div class="abs" id="e1" style="left:0;right:0;top:250px;text-align:center;font-size:110px;font-weight:900;letter-spacing:-3px">2029년,</div>
+    <div class="abs" id="e2" style="left:0;right:0;top:400px;text-align:center;font-size:64px;font-weight:800;letter-spacing:-1.5px"><span id="e2h" style="color:var(--orange)">빵이 더 팔리기 시작한 동네</span>에서 시작합니다</div>
+    <div class="abs" id="e3" style="left:0;right:0;top:510px;text-align:center;font-size:32px;font-weight:700;color:var(--gray)">노원구 하계1동 · 아침빵 + 쫀득 디저트 · 월 632만원(기본 시나리오)</div>
+    <div class="abs paper" id="e4" style="left:360px;right:360px;top:620px;padding:26px 40px;font-size:22px;line-height:1.7;color:var(--brown)">
+      <b>출처</b> 서울시 상권분석서비스 OpenAPI (2021Q1–2026Q2) · 한국부동산원 R-ONE 임대동향 (2026Q3, 상계역 상권 대용) · 최저임금위원회 · 금융위원회 우대수수료율 · 서울시·언론 보도(동북선·입주 일정, 디저트 유행) · 계산과 가정: story/logic.md, parts/4-pnl/pnl.py
+    </div>
+  </section>
+
+  <div id="sub" class="abs"></div>
+</div>
+<div id="play">▶ 클릭하면 재생 (내레이션 포함)</div>
+
+<script src="timeline.js"></script>
+<script>
+const TL = window.TIMELINE, S = TL.scenes;
+const $ = id => document.getElementById(id);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const P = (t, a, b) => ease(clamp((t - a) / (b - a)));
+// 예비 동작: 살짝 물러났다가 출발
+const antic = (t, a, b) => { const p = clamp((t - a) / (b - a)); return p < .22 ? -0.08 * Math.sin(p / .22 * Math.PI) : ease((p - .22) / .78); };
+const cue = (i, ph) => { const s = S[i], k = s.sub.indexOf(ph); return s.speechStart - s.start + s.speechDur * (k < 0 ? 0 : k) / s.sub.length; };
+const css = (el, o) => { for (const k in o) el.style[k] = o[k]; };
+const fmt = (v, d = 0) => v.toLocaleString('ko-KR', { minimumFractionDigits: d, maximumFractionDigits: d });
+const C = { cream: '#F6EFE3', brown: '#8B5A2B', orange: '#E8742A', gray: '#B8AFA3', paper: '#FBF7F0' };
+const SRC = [
+  '', '서울시 상권분석서비스 OpenAPI · 2021Q1–2026Q2', '점수: parts/1-location/scoring.csv · 민감도 sensitivity.csv',
+  '서울시 상권분석서비스 · 2025Q3–2026Q2 (점포 5개 이상 352개 동 중간값)', '서울시·언론 보도 (동북선 공정률 76.4%, 2026.9)',
+  '서울시 상권분석서비스 · 하계1동 최근 4분기 / 서울 2021→2026 상반기', '언론 보도 36건 종합 · 관심 반감기 추정',
+  '인기 메뉴 공식: parts/0-research/notes/dessert_hooks.md', 'parts/4-pnl/pnl.py · R-ONE · 최저임금위원회 · 금융위원회', ''];
+
+/* ---------- 1. 스플릿 플랩 ---------- */
+const POOL = '가나다라마바사아자차카타파하빵떡0123456789';
+const rnd = (i, k) => { const x = Math.sin(i * 127.1 + k * 311.7) * 43758.5453; return POOL[Math.floor((x - Math.floor(x)) * POOL.length)]; };
+const ROWS = [
+  { id: 'r1', text: '2029 노원구 하계1동', w: 92, h: 128, f: 88 },
+  { id: 'r2', text: '아침빵 + 쫀득 디저트', w: 92, h: 128, f: 88 },
+  { id: 'r3', text: '월 632만원', w: 156, h: 210, f: 150, hero: true },
+];
+const tiles = [];
+ROWS.forEach((r, ri) => {
+  const row = $(r.id); let n = 0;
+  [...r.text].forEach((ch) => {
+    if (ch === ' ') { const g = document.createElement('div'); g.className = 'gap'; row.appendChild(g); return; }
+    const el = document.createElement('div'); el.className = 'tile' + (r.hero ? ' hero' : '');
+    css(el, { width: r.w + 'px', height: r.h + 'px' });
+    el.innerHTML = ['top', 'bot', 'top', 'bot'].map(c => `<div class="h ${c}"><span style="height:${r.h}px;line-height:${r.h}px;font-size:${r.f}px"></span></div>`).join('');
+    row.appendChild(el);
+    tiles.push({ el, ch, ri, idx: n++, sp: el.querySelectorAll('span'), hs: el.querySelectorAll('.h'), last: '' });
+  });
+  r.count = n;
+});
+function s1(t, D) {
+  const c1 = cue(0, '아침빵'), c2 = cue(0, '한 달에'), c3 = cue(0, '632만');
+  const plan = [[0.35, c1 - 0.35], [c1 - 0.45, c2 - 0.6], [c2 - 0.7, c3 + 0.3]];
+  const settle3 = plan[2][1];
+  tiles.forEach(T => {
+    const [a, b] = plan[T.ri], n = ROWS[T.ri].count, st = a + T.idx * 0.035, stop = a + (b - a) * (0.45 + 0.55 * T.idx / Math.max(1, n - 1));
+    let cur = ' ', prev = ' ', ph = 1;
+    if (t >= stop) cur = prev = T.ch;
+    else if (t >= st) { const per = 0.075, k = Math.floor((t - st) / per); ph = ((t - st) % per) / per; cur = rnd(T.idx + T.ri * 20, k); prev = k ? rnd(T.idx + T.ri * 20, k - 1) : ' '; }
+    const key = cur + prev + (ph < 1 ? Math.round(ph * 10) : 'x');
+    if (key !== T.last) {
+      T.last = key; T.sp[0].textContent = cur; T.sp[1].textContent = prev; T.sp[2].textContent = prev; T.sp[3].textContent = cur;
+      const showFlap = t >= st && t < stop;
+      css(T.hs[2], { display: showFlap && ph < .5 ? 'block' : 'none', transform: `rotateX(${-ph * 180}deg)` });
+      css(T.hs[3], { display: showFlap && ph >= .5 ? 'block' : 'none', transform: `rotateX(${(1 - ph) * 180}deg)` });
+    }
+    T.el.style.opacity = P(t, plan[T.ri][0] - 0.3, plan[T.ri][0] + 0.2);
+  });
+  const dim = 1 - 0.45 * P(t, settle3 + 0.2, settle3 + 0.8);
+  $('r1').style.opacity = dim; $('r2').style.opacity = dim;
+  // 과장: 영상 전체에서 한 번만 (정점 1.3배)
+  const q = clamp((t - settle3) / 0.9); let sc = 1;
+  if (q > 0 && q < 1) sc = q < .18 ? 1 - 0.04 * Math.sin(q / .18 * Math.PI) : 1 + 0.3 * Math.sin((q - .18) / .82 * Math.PI);
+  css($('r3'), { transform: `scale(${sc})` });
+  $('s1cap').style.opacity = P(t, settle3 + 0.8, settle3 + 1.4);
+}
+
+/* ---------- 2. 원 4개 ---------- */
+const AX = [['수요', 30, '가구 수 증감 · 아침 유동인구<br>60대+ 비중 · 직장인구 증감'], ['미래 변화', 25, '2027~29 확정 입주 세대<br>2027 개통 확정 신규역'], ['경쟁', 20, '인구당 빵집 수 · 폐업률<br>프랜차이즈 비율 (낮을수록 ↑)'], ['수익성', 25, '점포당 매출 · 매출 증가율<br>평균 영업기간']];
+const circ = [];
+{ let x = 160; AX.forEach(([nm, w, ind]) => {
+  const d = Math.round(300 * Math.sqrt(w / 25)), cx = x + 190;
+  const el = document.createElement('div'); el.className = 'circle';
+  css(el, { width: d + 'px', height: d + 'px', left: (cx - d / 2) + 'px', top: (500 - d / 2) + 'px' });
+  el.innerHTML = `<div class="w">${w}</div><div class="n">${nm}</div>`;
+  const i2 = document.createElement('div'); i2.className = 'ind'; css(i2, { left: (cx - 165) + 'px', top: '690px' }); i2.innerHTML = ind;
+  $('circles').append(el, i2); circ.push({ el, i2, nm }); x += 400; }); }
+function s2(t) {
+  $('s2').querySelector('h2').style.opacity = P(t, 0.2, 0.8);
+  const cs = circ.map(c => cue(1, c.nm));
+  circ.forEach((c, i) => {
+    const a = cs[i] - 0.3, p = antic(t, a, a + 0.7), on = t >= a, next = i < 3 ? t >= cs[i + 1] - 0.3 : t >= cs[3] + 1.6;
+    css(c.el, { opacity: clamp(p * 1.4), transform: `scale(${0.6 + 0.4 * p})`, background: on && !next ? C.orange : C.brown });
+    c.i2.style.opacity = P(t, a + 0.3, a + 0.8);
+  });
+  $('s2sum').style.opacity = P(t, cs[3] + 1.4, cs[3] + 2.0);
+}
+
+/* ---------- 3. 순위 카운트다운 ---------- */
+const RK = [[1, '하계1동', '노원구', 76.9], [2, '월계2동', '노원구', 73.0], [3, '상계9동', '노원구', 69.0], [4, '효창동', '용산구', 67.2], [5, '창4동', '도봉구', 66.4]];
+const cards = RK.map(([r, nm, gu, sc], i) => {
+  const el = document.createElement('div'); el.className = 'card paper';
+  css(el, { top: (205 + i * 114) + 'px', height: '100px' });
+  el.innerHTML = `<div class="rk">${r}위</div><div class="nm">${nm} <span class="gu">${gu}</span></div><div class="sc">${sc.toFixed(1)}점</div>`;
+  $('cards').appendChild(el); return el;
+});
+function s3(t) {
+  $('s3').querySelector('h2').style.opacity = P(t, 0.1, 0.6);
+  const c1 = cue(2, '1위');
+  RK.forEach(([r], i) => {
+    const a = cue(2, r + '위') - 0.25, p = antic(t, a, a + 0.6), el = cards[i];
+    const top = r === 1, after1 = t >= c1;
+    css(el, { opacity: clamp(p * 1.3), transform: `translateX(${(1 - p) * 260}px) scale(${top && after1 ? 1 + 0.06 * P(t, c1, c1 + 0.6) : 1})`,
+      background: top && after1 ? C.orange : C.paper, color: top && after1 ? C.cream : (after1 ? C.gray : C.brown) });
+  });
+  const g = cue(2, '가중치'), k = cue(2, '986');
+  $('s3sens').style.opacity = P(t, g - 0.2, g + 0.4);
+  $('s3n').textContent = fmt(Math.round(986 * P(t, g + 0.3, k + 0.4)));
+}
+
+/* ---------- 4. 숫자 카운터 ---------- */
+function s4(t) {
+  $('s4top').style.opacity = P(t, 0.4, 1.0);
+  const cs = [cue(3, '빵집 수'), cue(3, '한 곳 매출'), cue(3, '매년')];
+  const v = [[3.06, 2, 'c1'], [2.20, 2, 'c2'], [10.2, 1, 'c3']];
+  cs.forEach((a, i) => {
+    const el = $('st' + (i + 1)), p = antic(t, a - 0.3, a + 0.4), cur = t >= a - 0.3 && (i === 2 || t < cs[i + 1] - 0.3);
+    css(el, { opacity: clamp(p * 1.3), transform: `translateY(${(1 - p) * 40}px)`, color: cur ? C.orange : C.brown });
+    $(v[i][2]).textContent = (v[i][0] * P(t, a - 0.1, a + 1.4)).toFixed(v[i][1]);
+  });
+}
+
+/* ---------- 5. 타임라인 ---------- */
+const X0 = 180, X1 = 1740, yr = y => X0 + (y - 2026) / 4 * (X1 - X0);
+{ let s = ''; for (let y = 2026; y <= 2030; y++) s += `<line x1="${yr(y)}" y1="545" x2="${yr(y)}" y2="575" stroke="#B8AFA3" stroke-width="4"/><text x="${yr(y)}" y="620" text-anchor="middle" font-size="30" font-weight="800" fill="#B8AFA3" font-family="Pretendard">${y}</text>`; $('ticks').innerHTML = s; }
+const MS = [[2027.85, '2027.11', '동북선 개통<br>하계역 일대', '동북선', -1], [2028.55, '2028.7', '월계동 서울원<br>3,032세대·실 입주', '2028년', 1], [2029.25, '2029 상반기', '중계본동 백사마을<br>3,178세대 입주', '6천여', -1], [2029.6, '2029', '우리 빵집 개업', '손님은', 1]];
+const msEl = MS.map(([y, d, txt, , side], i) => {
+  const el = document.createElement('div'); el.className = 'ms paper';
+  css(el, { left: (yr(y) - 165) + 'px', top: side < 0 ? '300px' : '660px' });
+  el.innerHTML = `<div class="d">${d}</div><div class="t">${txt}</div>`; $('mss').appendChild(el); return el;
+});
+function s5(t) {
+  $('s5').querySelector('h2').style.opacity = P(t, 0.1, 0.6);
+  $('tl').setAttribute('x2', X0 + (X1 - X0) * P(t, 0.2, 1.6)); $('ticks').style.opacity = P(t, 0.4, 1.2);
+  MS.forEach((m, i) => {
+    const a = cue(4, m[3]) - 0.2, p = antic(t, a, a + 0.6), el = msEl[i], last = i === 3;
+    css(el, { opacity: clamp(p * 1.3), transform: `translateY(${(1 - p) * m[4] * -30}px)`, background: last ? C.orange : C.paper, color: last ? C.cream : C.brown });
+  });
+}
+
+/* ---------- 6. 아이소메트릭 매장 ---------- */
+const ISO = { cx: 1010, cy: 290, s: 72 };
+const pj = (x, y, z) => [ISO.cx + (x - y) * ISO.s * 0.866, ISO.cy + (x + y) * ISO.s * 0.5 - z * ISO.s];
+const pts = a => a.map(p => pj(...p).map(v => v.toFixed(1)).join(',')).join(' ');
+const shade = (hex, k) => { const n = parseInt(hex.slice(1), 16), r = n >> 16, g = n >> 8 & 255, b = n & 255; return `rgb(${Math.round(r * k)},${Math.round(g * k)},${Math.round(b * k)})`; };
+const BOX = [ // 이름, x0,y0,x1,y1,높이, 기본색, 라벨 — 뒤(주방, x 작음) → 앞(입구, x=10)
+  ['kitchen', 0.2, 0.2, 4.8, 4.8, 0.2, C.gray, '주방 (오븐·발효)'],
+  ['oven1', 0.6, 0.6, 2.2, 2.0, 1.5, C.brown, ''], ['oven2', 0.6, 2.6, 2.2, 4.0, 1.2, C.brown, ''],
+  ['counter', 5.4, 0.3, 6.8, 1.3, 1.0, C.brown, '계산·픽업'],
+  ['show', 5.3, 3.0, 7.0, 4.6, 1.15, C.brown, '디저트 쇼케이스'],
+  ['bread', 7.4, 1.9, 9.3, 3.5, 0.85, C.brown, '아침빵 평대'],
+  ['bench', 8.0, 4.1, 9.6, 4.7, 0.45, C.brown, '벤치'],
+];
+function drawIso(t) {
+  const am = cue(5, '아침엔'), pm = cue(5, '오후엔');
+  let s = `<polygon points="${pts([[0, 0, 0], [10, 0, 0], [10, 5, 0], [0, 5, 0]])}" fill="${C.paper}" stroke="${C.gray}" stroke-width="3"/>`;
+  s += `<polygon points="${pts([[5, 0, 0], [5, 5, 0], [5, 5, 2.0], [5, 0, 2.0]])}" fill="rgba(184,175,163,.22)" stroke="${C.gray}" stroke-width="2"/>`;
+  const [ex, ey] = pj(10, 2.2, 0); s += `<text x="${ex + 30}" y="${ey + 40}" font-size="30" font-weight="800" fill="${C.brown}" font-family="Pretendard">← 입구</text>`;
+  let labels = '';
+  BOX.forEach(([nm, x0, y0, x1, y1, h0, col, lab], i) => {
+    const g = P(t, 0.2 + i * 0.22, 1.0 + i * 0.22), h = Math.max(0.02, h0 * g);
+    const hot = (nm === 'bread' && t >= am - 0.2 && t < pm - 0.2) || (nm === 'show' && t >= pm - 0.2);
+    const c = hot ? C.orange : col;
+    s += `<g opacity="${clamp(g * 2)}"><polygon points="${pts([[x1, y0, 0], [x1, y1, 0], [x1, y1, h], [x1, y0, h]])}" fill="${shade(c, .82)}"/>`
+      + `<polygon points="${pts([[x0, y1, 0], [x1, y1, 0], [x1, y1, h], [x0, y1, h]])}" fill="${shade(c, .66)}"/>`
+      + `<polygon points="${pts([[x0, y0, h], [x1, y0, h], [x1, y1, h], [x0, y1, h]])}" fill="${c}"/>`;
+    if (lab) { const [lx, ly] = pj((x0 + x1) / 2, (y0 + y1) / 2, h); labels += `<text opacity="${clamp(g * 2)}" x="${lx}" y="${ly - (nm === 'kitchen' ? 150 : 22)}" text-anchor="middle" font-size="${hot ? 36 : 28}" font-weight="800" fill="${hot ? C.orange : C.brown}" font-family="Pretendard" style="paint-order:stroke" stroke="${C.cream}" stroke-width="9">${lab}</text>`; }
+    s += '</g>';
+  });
+  const [gx, gy] = pj(5, 0, 2.0); s += labels + `<text x="${gx}" y="${gy - 14}" text-anchor="middle" font-size="24" font-weight="700" fill="${C.gray}" font-family="Pretendard">유리창 너머 굽는 모습</text>`;
+
+  $('iso').innerHTML = s;
+}
+function s6(t) {
+  drawIso(t);
+  const a = cue(5, '하계동'), b = cue(5, '서울 빵집의'), am = cue(5, '아침엔'), pm = cue(5, '오후엔');
+  $('s6a').style.opacity = P(t, a - 0.2, a + 0.4); $('s6b').style.opacity = P(t, b - 0.2, b + 0.4);
+  const c = $('s6c'); c.style.opacity = P(t, am - 0.3, am + 0.2);
+  c.innerHTML = t < pm - 0.2 ? '☀ 07:00 <span style="color:#E8742A">아침엔 빵</span>' : '◐ 14:00 <span style="color:#E8742A">오후엔 디저트</span>';
+}
+
+/* ---------- 7. 유행 주기 막대 + 교체 달력 ---------- */
+const BR = [['크로플', 163, '크로플'], ['탕후루', 54, '탕후루'], ['두쫀쿠', 15, '두쫀쿠']];
+const barEl = BR.map(([nm, d], i) => {
+  const y = 300 + i * 130, lab = document.createElement('div'), bar = document.createElement('div'), val = document.createElement('div');
+  lab.className = 'blab'; bar.className = 'bar'; val.className = 'bval';
+  css(lab, { top: (y + 18) + 'px' }); lab.textContent = nm; css(bar, { top: y + 'px' }); css(val, { top: (y + 18) + 'px' });
+  $('bars').append(lab, bar, val); return { lab, bar, val, d };
+});
+const cal = []; { const W = 1500, x0 = 210, wk = W / 52, lens = [7, 8, 7, 7, 8, 7, 8]; let w = 0;
+  lens.forEach((L, i) => { const el = document.createElement('div'); el.className = 'abs'; css(el, { left: (x0 + w * wk) + 'px', top: '560px', width: (L * wk - 8) + 'px', height: '150px', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '30px', fontWeight: '800' }); el.textContent = `시즌 ${i + 1}`; $('cal').appendChild(el); cal.push(el); w += L; });
+  const lab = document.createElement('div'); lab.className = 'abs'; lab.id = 'calLab'; css(lab, { left: '210px', top: '740px', fontSize: '30px', fontWeight: '800' }); lab.innerHTML = '개업 첫해 52주 · 시즌 한정 메뉴 <span style="color:#E8742A">6~8주마다 교체</span> · 빵 8종은 매일'; $('cal').appendChild(lab); }
+function s7(t, D) {
+  const sw = cue(6, '그래서'), out = P(t, sw - 0.3, sw + 0.3);
+  $('s7t').innerHTML = t < sw - 0.3 ? '디저트 관심이 반으로 줄기까지' : '그래서 한 메뉴에 걸지 않고, 돌린다';
+  $('s7t').style.opacity = P(t, 0.1, 0.6) * (t < sw - 0.3 ? 1 - out * 2 : P(t, sw, sw + 0.5));
+  BR.forEach(([nm, d, key], i) => {
+    const a = cue(6, key) - 0.2, p = P(t, a, a + 1.1), b = barEl[i], cur = t >= a && (i === 2 || t < cue(6, BR[i + 1][2]) - 0.2);
+    const w = 1100 * d / 163 * p, col = cur ? C.orange : C.gray;
+    css(b.bar, { width: w + 'px', background: col }); css(b.val, { left: (530 + w) + 'px', color: col }); b.val.textContent = Math.round(d * p) + '일';
+    [b.bar, b.val].forEach(e => e.style.opacity = clamp(P(t, a - 0.2, a + 0.2) * (1 - out)));
+    b.lab.style.opacity = P(t, 0.6 + i * 0.25, 1.1 + i * 0.25) * (1 - out);
+    b.lab.style.color = cur ? C.orange : C.brown;
+  });
+  $('s7n').style.opacity = P(t, cue(6, '두쫀쿠'), cue(6, '두쫀쿠') + 0.5) * (1 - out);
+  const head = (t - sw) / Math.max(1, D - 0.6 - sw) * 7;
+  cal.forEach((el, i) => { const p = P(t, sw + i * 0.12, sw + 0.5 + i * 0.12); css(el, { opacity: p, transform: `translateY(${(1 - p) * 30}px)`, background: i === Math.floor(clamp(head, 0, 6.99)) ? C.orange : C.paper, color: i === Math.floor(clamp(head, 0, 6.99)) ? C.cream : C.brown, boxShadow: 'var(--shadow)' }); });
+  $('calLab').style.opacity = P(t, sw + 0.6, sw + 1.2);
+}
+
+/* ---------- 8. 빵 단면 ---------- */
+function bread(t) {
+  const cut = cue(7, '잘랐을'), sp = 160 * P(t, cut + 0.3, cut + 1.2), knife = P(t, cut - 0.3, cut + 0.3);
+  const crust = '#C98B4F', crust2 = '#B47437';
+  const half = (dx, side) => `<g transform="translate(${460 + dx},310)">
+    <clipPath id="cp${side}"><rect x="${side < 0 ? -400 : 0}" y="-300" width="400" height="600"/></clipPath>
+    <g clip-path="url(#cp${side})"><ellipse cx="0" cy="0" rx="330" ry="170" fill="${crust}"/>
+    ${[-200, -110, -20, 70, 160].map(x => `<path d="M ${x} -150 Q ${x + 60} 0 ${x} 150" stroke="${crust2}" stroke-width="10" fill="none" opacity=".6"/>`).join('')}
+    ${[[-150, -90], [-40, -120], [80, -95], [190, -60], [-230, -20], [30, -40]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="7" fill="#fff" opacity=".9"/>`).join('')}</g></g>`;
+  const face = (x) => `<g transform="translate(${460 + x},310)" opacity="${P(t, cut + 0.4, cut + 0.9)}"><ellipse cx="0" cy="0" rx="40" ry="170" fill="${crust}"/><ellipse cx="0" cy="0" rx="32" ry="155" fill="#F3DDB3"/><ellipse cx="0" cy="8" rx="18" ry="95" fill="#FFFFFF"/><ellipse cx="0" cy="8" rx="18" ry="95" fill="none" stroke="${C.orange}" stroke-width="5"/></g>`;
+  let s = half(-sp, -1) + half(sp, 1) + (sp > 1 ? face(-sp + 2) + face(sp - 2) : '');
+  if (knife > 0 && sp < 20) s += `<line x1="460" y1="${80}" x2="460" y2="${80 + 460 * knife}" stroke="${C.brown}" stroke-width="6" stroke-dasharray="16 10"/>`;
+  if (sp > 100) s += `<text x="460" y="590" text-anchor="middle" font-size="30" font-weight="800" fill="${C.orange}" font-family="Pretendard">쫀득한 찹쌀 속 단면</text>`;
+  $('bread').innerHTML = s;
+}
+function s8(t) {
+  const W = [['w1', '익숙한'], ['w2', '떡의'], ['w3', '잘랐을'], ['w4', '하루']];
+  $('s8t').style.opacity = P(t, 0.1, 0.6);
+  W.forEach(([id, k], i) => {
+    const a = cue(7, k) - 0.25, p = antic(t, a, a + 0.5), cur = t >= a && (i === 3 || t < cue(7, W[i + 1][1]) - 0.25);
+    css($(id), { opacity: clamp(p * 1.4), transform: `translateX(${(1 - p) * -60}px)`, color: cur ? C.orange : C.brown });
+  });
+  $('bread').style.opacity = P(t, 0.4, 1.2); bread(t);
+  const h = cue(7, '하루'); css($('s8b'), { opacity: P(t, h, h + 0.4), transform: `scale(${0.8 + 0.2 * antic(t, h, h + 0.5)})` });
+}
+
+/* ---------- 9. 손익 순서도 ---------- */
+const SC = [['비관', 92], ['기본', 632], ['낙관', 1029]];
+const scEl = SC.map(([nm, v], i) => { const el = document.createElement('div'); el.className = 'abs'; css(el, { left: (380 + i * 420) + 'px', top: '770px', width: '380px', display: 'flex', alignItems: 'flex-end', gap: '16px', fontSize: '28px', fontWeight: '800' });
+  el.innerHTML = `<span style="width:70px">${nm}</span><span class="sb" style="display:inline-block;height:26px;border-radius:0 8px 8px 0"></span><span>${fmt(v)}</span>`; $('scen').appendChild(el); return el; });
+function s9(t) {
+  const a = cue(8, '월 매출'), b = cue(8, '632만'), path = $('flow'), L = path.getTotalLength();
+  $('b0').style.opacity = P(t, a - 0.3, a + 0.2);
+  ['재료비', '인건비', '임대료', '임대료'].forEach((k, i) => { const c = cue(8, k) + (i === 3 ? 0.5 : 0) - 0.2, el = $('bc' + (i + 1)), p = antic(t, c, c + 0.5); css(el, { opacity: clamp(p * 1.4), transform: `translateX(${(1 - p) * -40}px)` }); });
+  const pt = path.getPointAtLength(L * P(t, a + 0.3, b)); $('dot').setAttribute('cx', pt.x); $('dot').setAttribute('cy', pt.y);
+  $('dot').style.opacity = t > a && t < b + 0.6 ? 1 : 0;
+  const p5 = antic(t, b - 0.2, b + 0.5); css($('b5'), { opacity: clamp(p5 * 1.4), transform: `scale(${0.7 + 0.3 * p5})` });
+  const d = cue(8, '하루'), m = cue(8, '22개월');
+  $('s9a').style.opacity = P(t, d - 0.2, d + 0.3); $('s9b').style.opacity = P(t, m - 0.2, m + 0.3);
+  SC.forEach(([, v], i) => { const p = P(t, m + 0.8 + i * 0.25, m + 1.6 + i * 0.25); scEl[i].style.opacity = p; css(scEl[i].querySelector('.sb'), { width: (180 * v / 1029 * p + 4) + 'px', background: i === 1 ? C.orange : C.gray }); });
+}
+
+/* ---------- 10. 엔드 카드 ---------- */
+function s10(t, D) {
+  $('e1').style.opacity = P(t, 0.2, 0.8); css($('e2'), { opacity: P(t, 0.9, 1.6), transform: `translateY(${(1 - P(t, 0.9, 1.6)) * 30}px)` });
+  $('e3').style.opacity = P(t, 2.2, 2.8); $('e4').style.opacity = P(t, 3.4, 4.0);
+  $('stage').style.filter = `opacity(${1 - P(t, D - 0.8, D)})`;
+}
+
+const FN = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
+let lastScene = -1;
+function render(T) {
+  T = clamp(T, 0, TL.total - 0.001);
+  let i = S.findIndex(s => T >= s.start && T < s.start + s.dur); if (i < 0) i = S.length - 1;
+  const s = S[i], t = T - s.start;
+  if (i !== lastScene) { document.querySelectorAll('.scene').forEach((el, k) => { el.style.visibility = k === i ? 'visible' : 'hidden'; }); lastScene = i; $('src').textContent = SRC[i] ? '출처 · ' + SRC[i] : ''; $('stage').style.filter = ''; }
+  const sec = $('s' + (i + 1));
+  sec.style.opacity = Math.min(i === 0 ? 1 : P(t, 0, 0.45), i === S.length - 1 ? 1 : 1 - P(t, s.dur - 0.45, s.dur));
+  sec.style.transform = `translateY(${(1 - P(t, 0, 0.45)) * 18}px)`;
+  FN[i](t, s.dur);
+  const sub = $('sub'), on = T >= s.speechStart - 0.15 && T < s.speechStart + s.speechDur + 0.4;
+  if (sub.textContent !== s.sub) sub.textContent = s.sub;
+  sub.style.opacity = on ? Math.min(P(T, s.speechStart - 0.15, s.speechStart + 0.1), 1 - P(T, s.speechStart + s.speechDur + 0.2, s.speechStart + s.speechDur + 0.4)) : 0;
+}
+window.__render = render;
+
+function fit() { const k = Math.min(innerWidth / 1920, innerHeight / 1080), st = $('stage'); st.style.transform = `scale(${k})`; st.style.left = (innerWidth - 1920 * k) / 2 + 'px'; st.style.top = (innerHeight - 1080 * k) / 2 + 'px'; }
+const RENDER = new URLSearchParams(location.search).has('render');
+if (RENDER) { $('play').remove(); render(0); }
+else {
+  fit(); addEventListener('resize', fit); render(0);
+  $('play').onclick = () => {
+    $('play').remove();
+    const music = new Audio('audio/music.wav'); music.volume = 0.5; music.play().catch(() => {});
+    const narr = S.map(s => new Audio(`audio/narr_${String(s.n).padStart(2, '0')}.wav`)), done = new Set();
+    const t0 = performance.now();
+    (function loop() {
+      const T = (performance.now() - t0) / 1000;
+      S.forEach((s, k) => { if (T >= s.speechStart && !done.has(k)) { done.add(k); narr[k].play().catch(() => {}); } });
+      render(T); if (T < TL.total) requestAnimationFrame(loop);
+    })();
+  };
+}
+</script>
+</body>
+</html>

@@ -10,3 +10,8 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 Thumbs.db
+
+# 영상 작업 중간 산출물
+video/frames.mp4
+video/preview/
+video/audio/mix.wav
