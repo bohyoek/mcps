@@ -77,7 +77,7 @@ def main():
 
     quarters = sorted({r["STDR_YYQU_CD"] for r in rows})
     by = {(r["STDR_YYQU_CD"], r["ADSTRD_CD"]): r["TOT_FLPOP_CO"] for r in rows}
-    write("for-video/09_분기별_총유동인구.csv", ["기준분기"] + [f"{n}(명)" for n in names],
+    write("for-video/09_분기별_총유동인구.csv", ["기준분기"] + [f"{n}(명·분기누적)" for n in names],
           [[f"{q[:4]}Q{q[4]}"] + [int(by[(q, c)]) for c in DONGS] for q in quarters])
 
     print("최신 분기", latest, "/ 행", len(rows))
